@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MySips | Your Favorite Drinks</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>🥤 MySips</h1>
+    <p>Your favorite drinks, one sip at a time.</p>
+  </header>
+
+  <section class="promo">
+    <h2>🎁 Free Drink!</h2>
+    <p>Buy 3 drinks and get the next one free!</p>
+  </section>
+
+  <main class="product-grid">
+    <div class="product" data-name="Coca Cola" data-price="1.00">
+      <h3>Coca Cola</h3>
+      <p>$1.00</p>
+      <button onclick="addToCart(this)">Add to Cart</button>
+    </div>
+    <div class="product" data-name="Dr Pepper" data-price="1.00">
+      <h3>Dr Pepper</h3>
+      <p>$1.00</p>
+      <button onclick="addToCart(this)">Add to Cart</button>
+    </div>
+    <div class="product" data-name="Sprite" data-price="0.75">
+      <h3>Sprite</h3>
+      <p>$0.75</p>
+      <button onclick="addToCart(this)">Add to Cart</button>
+    </div>
+    <div class="product" data-name="Prime" data-price="1.25">
+      <h3>Prime</h3>
+      <p>$1.25</p>
+      <button onclick="addToCart(this)">Add to Cart</button>
+    </div>
+    <div class="product" data-name="Iced Tea" data-price="1.00">
+      <h3>Iced Tea</h3>
+      <p>$1.00</p>
+      <button onclick="addToCart(this)">Add to Cart</button>
+    </div>
+    <div class="product" data-name="Lemonade" data-price="0.75">
+      <h3>Lemonade</h3>
+      <p>$0.75</p>
+      <button onclick="addToCart(this)">Add to Cart</button>
+    </div>
+    <div class="product" data-name="Chocolate Milk" data-price="0.75">
+      <h3>Chocolate Milk</h3>
+      <p>$0.75</p>
+      <button onclick="addToCart(this)">Add to Cart</button>
+    </div>
+  </main>
+
+  <section class="cart">
+    <h2>🛒 Cart</h2>
+    <ul id="cart-items"></ul>
+    <p><strong>Total:</strong> $<span id="total">0.00</span></p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 MySips. Made with 💧</p>
+  </footer>
+
+  <script>
+    let total = 0;
+    let orders = 0;
+
+    function addToCart(button) {
+      const product = button.parentElement;
+      const name = product.dataset.name;
+      const price = parseFloat(product.dataset.price);
+
+      const cartItems = document.getElementById("cart-items");
+      const newItem = document.createElement("li");
+      newItem.textContent = `${name} - $${price.toFixed(2)}`;
+      cartItems.appendChild(newItem);
+
+      total += price;
+      orders += 1;
+      document.getElementById("total").textContent = total.toFixed(2);
+
+      if (orders === 3) {
+        alert("🎉 You've earned a free drink on your next order!");
+      }
+    }
+  </script>
+</body>
+</html>
