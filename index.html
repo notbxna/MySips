@@ -3,103 +3,125 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MySips | Order Tracking</title>
+  <title>MySips | Order Your Favorite Drinks</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Poppins', sans-serif;
       margin: 0;
-      background: #f8f9fa;
+      background: #f2f2f2;
       color: #333;
     }
     header, footer {
-      background: #007bff;
-      color: white;
       text-align: center;
-      padding: 1rem 0;
+      background: #4CAF50;
+      color: white;
+      padding: 1rem;
     }
     .promo {
-      background: #d4edda;
-      color: #155724;
-      text-align: center;
+      background: #e0ffe0;
       padding: 1rem;
-      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .category-title {
+      padding-left: 1rem;
+      font-size: 1.2rem;
+      margin-top: 2rem;
     }
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
       gap: 1rem;
-      padding: 0 1rem;
+      padding: 1rem;
     }
     .product {
       background: white;
-      border: 1px solid #ccc;
       padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       text-align: center;
-      border-radius: 8px;
     }
-    .cart, .control-panel {
-      background: #fff;
+    .product button {
+      margin-top: 0.5rem;
+      padding: 0.4rem 1rem;
+      background: #4CAF50;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .cart, .admin-panel {
+      background: white;
       padding: 1rem;
       margin: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border-radius: 10px;
     }
-    input, button {
-      padding: 0.5rem;
-      margin-top: 0.5rem;
+    ul {
+      padding-left: 20px;
     }
-    #admin-login, #admin-panel {
+    .admin-panel {
+      background: #fffbe6;
+      display: none;
+    }
+    #admin-login {
       margin: 1rem;
+      text-align: center;
     }
   </style>
 </head>
 <body>
+
   <header>
     <h1>🥤 MySips</h1>
-    <p>Your favorite drinks, one sip at a time.</p>
+    <p>Your favorite drinks, one sip at a time</p>
   </header>
 
   <section class="promo">
-    <h2>🎁 Free Drink!</h2>
+    <h2>🎁 Free Drink</h2>
     <p>Buy 3 drinks and get the next one free!</p>
   </section>
 
+  <div class="category-title">🥤 Sodas</div>
   <main class="product-grid">
-    <div class="product" data-name="Coca Cola" data-price="1.00">
-      <h3>Coca Cola</h3>
-      <p>$1.00</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
+    <div class="product" data-name="Coca Cola" data-price="1.00" data-category="Soda">
+      <h3>Coca Cola</h3><p>$1.00</p><button onclick="addToCart(this)">Add to Cart</button>
     </div>
-    <div class="product" data-name="Dr Pepper" data-price="1.00">
-      <h3>Dr Pepper</h3>
-      <p>$1.00</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
+    <div class="product" data-name="Dr Pepper" data-price="1.00" data-category="Soda">
+      <h3>Dr Pepper</h3><p>$1.00</p><button onclick="addToCart(this)">Add to Cart</button>
     </div>
-    <div class="product" data-name="Sprite" data-price="0.75">
-      <h3>Sprite</h3>
-      <p>$0.75</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
+    <div class="product" data-name="Sprite" data-price="0.75" data-category="Soda">
+      <h3>Sprite</h3><p>$0.75</p><button onclick="addToCart(this)">Add to Cart</button>
     </div>
-    <div class="product" data-name="Prime" data-price="1.25">
-      <h3>Prime</h3>
-      <p>$1.25</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
+  </main>
+
+  <div class="category-title">🍋 Refreshers</div>
+  <main class="product-grid">
+    <div class="product" data-name="Lemonade" data-price="0.75" data-category="Refresher">
+      <h3>Lemonade</h3><p>$0.75</p><button onclick="addToCart(this)">Add to Cart</button>
     </div>
-    <div class="product" data-name="Iced Tea" data-price="1.00">
-      <h3>Iced Tea</h3>
-      <p>$1.00</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
+    <div class="product" data-name="Iced Tea" data-price="1.00" data-category="Refresher">
+      <h3>Iced Tea</h3><p>$1.00</p><button onclick="addToCart(this)">Add to Cart</button>
     </div>
-    <div class="product" data-name="Lemonade" data-price="0.75">
-      <h3>Lemonade</h3>
-      <p>$0.75</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
+  </main>
+
+  <div class="category-title">⚡ Energy</div>
+  <main class="product-grid">
+    <div class="product" data-name="Prime" data-price="1.25" data-category="Energy">
+      <h3>Prime</h3><p>$1.25</p><button onclick="addToCart(this)">Add to Cart</button>
     </div>
-    <div class="product" data-name="Chocolate Milk" data-price="0.75">
-      <h3>Chocolate Milk</h3>
-      <p>$0.75</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
+  </main>
+
+  <div class="category-title">🥛 Dairy</div>
+  <main class="product-grid">
+    <div class="product" data-name="Chocolate Milk" data-price="0.75" data-category="Dairy">
+      <h3>Chocolate Milk</h3><p>$0.75</p><button onclick="addToCart(this)">Add to Cart</button>
+    </div>
+  </main>
+
+  <div class="category-title">💧 Basics</div>
+  <main class="product-grid">
+    <div class="product" data-name="Water" data-price="0.25" data-category="Basics">
+      <h3>Water</h3><p>$0.25</p><button onclick="addToCart(this)">Add to Cart</button>
     </div>
   </main>
 
@@ -111,14 +133,15 @@
   </section>
 
   <section id="admin-login">
-    <h2>🔒 Control Panel Login</h2>
-    <input type="password" id="admin-password" placeholder="Enter password...">
-    <button onclick="unlockPanel()">Login</button>
+    <input type="password" id="admin-password" placeholder="Enter control panel password">
+    <button onclick="unlockAdmin()">Access Control Panel</button>
   </section>
 
-  <section id="admin-panel" style="display: none;">
+  <section class="admin-panel" id="admin-panel">
     <h2>🧾 Control Panel</h2>
-    <ul id="order-history"></ul>
+    <p><strong>Total Earnings:</strong> $<span id="money-earned">0.00</span></p>
+    <h3>Order History</h3>
+    <ul id="order-log"></ul>
   </section>
 
   <footer>
@@ -126,10 +149,10 @@
   </footer>
 
   <script>
-    let total = 0;
-    let orders = 0;
     let cart = [];
-    let orderHistory = [];
+    let total = 0;
+    let earnings = 0;
+    let orders = 0;
 
     function addToCart(button) {
       const product = button.parentElement;
@@ -137,7 +160,6 @@
       const price = parseFloat(product.dataset.price);
 
       cart.push({ name, price });
-
       const cartItems = document.getElementById("cart-items");
       const newItem = document.createElement("li");
       newItem.textContent = `${name} - $${price.toFixed(2)}`;
@@ -153,46 +175,41 @@
     }
 
     function checkout() {
-      const location = prompt("Where should we deliver your order?");
-      const time = prompt("What time should we deliver?");
-      const summary = cart.map(item => `${item.name} - $${item.price.toFixed(2)}`).join(', ');
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+      const location = prompt("📍 Where should we deliver your order?");
+      const time = prompt("⏰ What time should we deliver it?");
 
-      const orderEntry = {
-        items: summary,
-        location,
-        time,
-        total: total.toFixed(2)
-      };
-      orderHistory.push(orderEntry);
+      const summary = cart.map(item => `${item.name} ($${item.price.toFixed(2)})`).join(", ");
+      const logEntry = `Order: ${summary} | Location: ${location} | Time: ${time} | Total: $${total.toFixed(2)}`;
 
-      alert("✅ Order placed successfully!");
+      const log = document.createElement("li");
+      log.textContent = logEntry;
+      document.getElementById("order-log").appendChild(log);
 
-      // Reset cart
+      earnings += total;
+      document.getElementById("money-earned").textContent = earnings.toFixed(2);
+
+      // Clear cart
       cart = [];
-      orders = 0;
       total = 0;
+      orders = 0;
       document.getElementById("cart-items").innerHTML = "";
       document.getElementById("total").textContent = "0.00";
+
+      alert("✅ Order placed!");
     }
 
-    function unlockPanel() {
-      const password = document.getElementById("admin-password").value;
-      if (password === "thisisliterallythecontrolpanelpasswordbrooo.") {
+    function unlockAdmin() {
+      const pass = document.getElementById("admin-password").value;
+      if (pass === "thisisliterallythecontrolpanelpasswordbrooo.") {
         document.getElementById("admin-panel").style.display = "block";
-        renderOrderHistory();
+        document.getElementById("admin-login").style.display = "none";
       } else {
         alert("❌ Incorrect password.");
       }
-    }
-
-    function renderOrderHistory() {
-      const list = document.getElementById("order-history");
-      list.innerHTML = "";
-      orderHistory.forEach((order, index) => {
-        const li = document.createElement("li");
-        li.textContent = `Order ${index + 1}: ${order.items} | Total: $${order.total} | Deliver to: ${order.location} at ${order.time}`;
-        list.appendChild(li);
-      });
     }
   </script>
 </body>
