@@ -154,6 +154,16 @@
     let earnings = 0;
     let orders = 0;
 
+     function sendOrderToSheet(name, drink, price, time, location) {
+    fetch('https://script.google.com/macros/s/YOUR_WEB_APP_URL/exec', {
+      method: 'POST',
+      body: JSON.stringify({ name, drink, price, time, location }),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(res => {
+      if (res.ok) console.log("✅ Sent to Google Sheet");
+    });
+  }
+    
     function addToCart(button) {
       const product = button.parentElement;
       const name = product.dataset.name;
@@ -168,7 +178,8 @@
       total += price;
       orders++;
       document.getElementById("total").textContent = total.toFixed(2);
-
+      
+      
       if (orders === 3) {
         alert("🎉 You've earned a free drink on your next order!");
       }
