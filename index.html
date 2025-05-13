@@ -4,47 +4,53 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MySips | Drink Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
       margin: 0;
-      padding: 0;
-      background: #f0f4f8;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(120deg, #e0f7fa, #e1bee7);
       color: #333;
     }
     header {
-      background: #4a90e2;
+      background: #6a1b9a;
       color: white;
-      padding: 1rem;
+      padding: 1.5rem;
       text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
     }
     .promo {
-      text-align: center;
-      background: #e2f0d9;
+      background: #fff3e0;
       padding: 1rem;
+      text-align: center;
+      font-weight: bold;
+    }
+    .category {
+      margin-top: 2rem;
+    }
+    .category h2 {
+      padding-left: 1rem;
+      color: #6a1b9a;
     }
     .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      display: flex;
+      flex-wrap: wrap;
       gap: 1rem;
       padding: 1rem;
     }
     .product {
       background: white;
       border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      flex: 1 1 200px;
       padding: 1rem;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
       text-align: center;
     }
-    .cart, .control-panel {
-      background: #fff;
-      margin: 1rem;
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
-    }
     button {
-      background: #4a90e2;
+      background: #6a1b9a;
       color: white;
       border: none;
       padding: 0.5rem 1rem;
@@ -52,70 +58,94 @@
       cursor: pointer;
     }
     button:hover {
-      background: #357ac9;
+      background: #4a148c;
+    }
+    .cart, .control-panel {
+      background: white;
+      margin: 2rem 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     footer {
       text-align: center;
       padding: 1rem;
+      background: #f3e5f5;
       font-size: 0.9rem;
-      color: #666;
     }
   </style>
 </head>
 <body>
+
   <header>
     <h1>🥤 MySips</h1>
     <p>Your favorite drinks, one sip at a time.</p>
   </header>
 
   <section class="promo">
-    <h2>🎁 Free Drink!</h2>
-    <p>Buy 3 drinks and get the next one free!</p>
+    🎁 Buy 3 drinks and get the next one free!
   </section>
 
-  <main class="product-grid">
+  <main>
     <!-- Sodas -->
-    <div class="product" data-name="Coca Cola" data-price="1.00" data-category="Soda">
-      <h3>Coca Cola</h3>
-      <p>$1.00</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
+    <div class="category">
+      <h2>Sodas</h2>
+      <div class="product-grid">
+        <div class="product" data-name="Coca Cola" data-price="1.00" data-category="Soda">
+          <h3>Coca Cola</h3>
+          <p>$1.00</p>
+          <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+        <div class="product" data-name="Dr Pepper" data-price="1.00" data-category="Soda">
+          <h3>Dr Pepper</h3>
+          <p>$1.00</p>
+          <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+        <div class="product" data-name="Sprite" data-price="0.75" data-category="Soda">
+          <h3>Sprite</h3>
+          <p>$0.75</p>
+          <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+      </div>
     </div>
-    <div class="product" data-name="Dr Pepper" data-price="1.00" data-category="Soda">
-      <h3>Dr Pepper</h3>
-      <p>$1.00</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
-    </div>
-    <div class="product" data-name="Sprite" data-price="0.75" data-category="Soda">
-      <h3>Sprite</h3>
-      <p>$0.75</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
-    </div>
+
     <!-- Refreshers -->
-    <div class="product" data-name="Prime" data-price="1.25" data-category="Refresher">
-      <h3>Prime</h3>
-      <p>$1.25</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
+    <div class="category">
+      <h2>Refreshers</h2>
+      <div class="product-grid">
+        <div class="product" data-name="Prime" data-price="1.25" data-category="Refresher">
+          <h3>Prime</h3>
+          <p>$1.25</p>
+          <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+        <div class="product" data-name="Iced Tea" data-price="1.00" data-category="Refresher">
+          <h3>Iced Tea</h3>
+          <p>$1.00</p>
+          <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+        <div class="product" data-name="Lemonade" data-price="0.75" data-category="Refresher">
+          <h3>Lemonade</h3>
+          <p>$0.75</p>
+          <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+      </div>
     </div>
-    <div class="product" data-name="Iced Tea" data-price="1.00" data-category="Refresher">
-      <h3>Iced Tea</h3>
-      <p>$1.00</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
-    </div>
-    <div class="product" data-name="Lemonade" data-price="0.75" data-category="Refresher">
-      <h3>Lemonade</h3>
-      <p>$0.75</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
-    </div>
+
     <!-- Others -->
-    <div class="product" data-name="Chocolate Milk" data-price="0.75" data-category="Milk">
-      <h3>Chocolate Milk</h3>
-      <p>$0.75</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
-    </div>
-    <div class="product" data-name="Water" data-price="0.25" data-category="Other">
-      <h3>Water</h3>
-      <p>$0.25</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
+    <div class="category">
+      <h2>Others</h2>
+      <div class="product-grid">
+        <div class="product" data-name="Chocolate Milk" data-price="0.75" data-category="Milk">
+          <h3>Chocolate Milk</h3>
+          <p>$0.75</p>
+          <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+        <div class="product" data-name="Water" data-price="0.25" data-category="Other">
+          <h3>Water</h3>
+          <p>$0.25</p>
+          <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+      </div>
     </div>
   </main>
 
@@ -132,7 +162,7 @@
   </section>
 
   <footer>
-    <p>&copy; 2025 MySips. Made with 💧</p>
+    &copy; 2025 MySips. Made with 💧
   </footer>
 
   <script>
@@ -155,8 +185,8 @@
       orders++;
       document.getElementById("total").textContent = total.toFixed(2);
 
-      const time = prompt("What time should we deliver?");
-      const location = prompt("Where should we deliver?");
+      const time = prompt("🕒 What time should we deliver?");
+      const location = prompt("📍 Where should we deliver?");
       sendOrderToSheet("Customer", name, price, time, location);
 
       if (orders === 3) {
@@ -165,7 +195,7 @@
     }
 
     function sendOrderToSheet(name, drink, price, time, location) {
-      fetch('https://script.google.com/macros/https://script.google.com/macros/s/AKfycbz1BHqhl_Mdj5NAoGxG6upjhvvoMBZ1uXHVxBa3w6qWsXKDkBmuEitla7HFIUvkyfwU3A/exec/exec', {
+      fetch('https://script.google.com/macros/s/YOUR_DEPLOYED_WEB_APP_URL/exec', {
         method: 'POST',
         body: JSON.stringify({ name, drink, price, time, location }),
         headers: { 'Content-Type': 'application/json' }
@@ -174,16 +204,8 @@
       });
     }
 
-    window.onload = function() {
-      const password = prompt("Enter control panel password (or click Cancel to skip):");
-      if (password === "thisisliterallythecontrolpanelpasswordbrooo.") {
-        document.getElementById("admin-panel").style.display = "block";
-        fetchOrders();
-      }
-    }
-
     function fetchOrders() {
-      fetch('https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbz1BHqhl_Mdj5NAoGxG6upjhvvoMBZ1uXHVxBa3w6qWsXKDkBmuEitla7HFIUvkyfwU3A/exec')
+      fetch('https://script.google.com/macros/s/YOUR_DEPLOYED_WEB_APP_URL/exec')
         .then(res => res.json())
         .then(data => {
           const log = document.getElementById("orders-log");
@@ -197,6 +219,15 @@
           moneyBox.textContent = totalMoney.toFixed(2);
         });
     }
+
+    window.onload = function() {
+      const password = prompt("Enter control panel password (or click Cancel to skip):");
+      if (password === "thisisliterallythecontrolpanelpasswordbrooo.") {
+        document.getElementById("admin-panel").style.display = "block";
+        fetchOrders();
+      }
+    };
   </script>
+
 </body>
 </html>
