@@ -3,145 +3,132 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MySips | Order Your Favorite Drinks</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <title>MySips | Drink Store</title>
   <style>
     body {
       font-family: 'Poppins', sans-serif;
       margin: 0;
-      background: #f2f2f2;
+      padding: 0;
+      background: #f0f4f8;
       color: #333;
     }
-    header, footer {
-      text-align: center;
-      background: #4CAF50;
+    header {
+      background: #4a90e2;
       color: white;
       padding: 1rem;
-    }
-    .promo {
-      background: #e0ffe0;
-      padding: 1rem;
       text-align: center;
     }
-    .category-title {
-      padding-left: 1rem;
-      font-size: 1.2rem;
-      margin-top: 2rem;
+    .promo {
+      text-align: center;
+      background: #e2f0d9;
+      padding: 1rem;
     }
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1rem;
       padding: 1rem;
     }
     .product {
       background: white;
+      border-radius: 8px;
       padding: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
       text-align: center;
     }
-    .product button {
-      margin-top: 0.5rem;
-      padding: 0.4rem 1rem;
-      background: #4CAF50;
-      border: none;
+    .cart, .control-panel {
+      background: #fff;
+      margin: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    button {
+      background: #4a90e2;
       color: white;
-      border-radius: 5px;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
       cursor: pointer;
     }
-    .cart, .admin-panel {
-      background: white;
-      padding: 1rem;
-      margin: 1rem;
-      border-radius: 10px;
+    button:hover {
+      background: #357ac9;
     }
-    ul {
-      padding-left: 20px;
-    }
-    .admin-panel {
-      background: #fffbe6;
-      display: none;
-    }
-    #admin-login {
-      margin: 1rem;
+    footer {
       text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #666;
     }
   </style>
 </head>
 <body>
-
   <header>
     <h1>🥤 MySips</h1>
-    <p>Your favorite drinks, one sip at a time</p>
+    <p>Your favorite drinks, one sip at a time.</p>
   </header>
 
   <section class="promo">
-    <h2>🎁 Free Drink</h2>
+    <h2>🎁 Free Drink!</h2>
     <p>Buy 3 drinks and get the next one free!</p>
   </section>
 
-  <div class="category-title">🥤 Sodas</div>
   <main class="product-grid">
+    <!-- Sodas -->
     <div class="product" data-name="Coca Cola" data-price="1.00" data-category="Soda">
-      <h3>Coca Cola</h3><p>$1.00</p><button onclick="addToCart(this)">Add to Cart</button>
+      <h3>Coca Cola</h3>
+      <p>$1.00</p>
+      <button onclick="addToCart(this)">Add to Cart</button>
     </div>
     <div class="product" data-name="Dr Pepper" data-price="1.00" data-category="Soda">
-      <h3>Dr Pepper</h3><p>$1.00</p><button onclick="addToCart(this)">Add to Cart</button>
+      <h3>Dr Pepper</h3>
+      <p>$1.00</p>
+      <button onclick="addToCart(this)">Add to Cart</button>
     </div>
     <div class="product" data-name="Sprite" data-price="0.75" data-category="Soda">
-      <h3>Sprite</h3><p>$0.75</p><button onclick="addToCart(this)">Add to Cart</button>
+      <h3>Sprite</h3>
+      <p>$0.75</p>
+      <button onclick="addToCart(this)">Add to Cart</button>
     </div>
-  </main>
-
-  <div class="category-title">🍋 Refreshers</div>
-  <main class="product-grid">
-    <div class="product" data-name="Lemonade" data-price="0.75" data-category="Refresher">
-      <h3>Lemonade</h3><p>$0.75</p><button onclick="addToCart(this)">Add to Cart</button>
+    <!-- Refreshers -->
+    <div class="product" data-name="Prime" data-price="1.25" data-category="Refresher">
+      <h3>Prime</h3>
+      <p>$1.25</p>
+      <button onclick="addToCart(this)">Add to Cart</button>
     </div>
     <div class="product" data-name="Iced Tea" data-price="1.00" data-category="Refresher">
-      <h3>Iced Tea</h3><p>$1.00</p><button onclick="addToCart(this)">Add to Cart</button>
+      <h3>Iced Tea</h3>
+      <p>$1.00</p>
+      <button onclick="addToCart(this)">Add to Cart</button>
     </div>
-  </main>
-
-  <div class="category-title">⚡ Energy</div>
-  <main class="product-grid">
-    <div class="product" data-name="Prime" data-price="1.25" data-category="Energy">
-      <h3>Prime</h3><p>$1.25</p><button onclick="addToCart(this)">Add to Cart</button>
+    <div class="product" data-name="Lemonade" data-price="0.75" data-category="Refresher">
+      <h3>Lemonade</h3>
+      <p>$0.75</p>
+      <button onclick="addToCart(this)">Add to Cart</button>
     </div>
-  </main>
-
-  <div class="category-title">🥛 Dairy</div>
-  <main class="product-grid">
-    <div class="product" data-name="Chocolate Milk" data-price="0.75" data-category="Dairy">
-      <h3>Chocolate Milk</h3><p>$0.75</p><button onclick="addToCart(this)">Add to Cart</button>
+    <!-- Others -->
+    <div class="product" data-name="Chocolate Milk" data-price="0.75" data-category="Milk">
+      <h3>Chocolate Milk</h3>
+      <p>$0.75</p>
+      <button onclick="addToCart(this)">Add to Cart</button>
     </div>
-  </main>
-
-  <div class="category-title">💧 Basics</div>
-  <main class="product-grid">
-    <div class="product" data-name="Water" data-price="0.25" data-category="Basics">
-      <h3>Water</h3><p>$0.25</p><button onclick="addToCart(this)">Add to Cart</button>
+    <div class="product" data-name="Water" data-price="0.25" data-category="Other">
+      <h3>Water</h3>
+      <p>$0.25</p>
+      <button onclick="addToCart(this)">Add to Cart</button>
     </div>
   </main>
 
   <section class="cart">
-    <h2>🛒 Cart</h2>
+    <h2>🛒 Your Cart</h2>
     <ul id="cart-items"></ul>
     <p><strong>Total:</strong> $<span id="total">0.00</span></p>
-    <button onclick="checkout()">Checkout</button>
   </section>
 
-  <section id="admin-login">
-    <input type="password" id="admin-password" placeholder="Enter control panel password">
-    <button onclick="unlockAdmin()">Access Control Panel</button>
-  </section>
-
-  <section class="admin-panel" id="admin-panel">
-    <h2>🧾 Control Panel</h2>
-    <p><strong>Total Earnings:</strong> $<span id="money-earned">0.00</span></p>
-    <h3>Order History</h3>
-    <ul id="order-log"></ul>
+  <section class="control-panel" style="display:none;" id="admin-panel">
+    <h2>🔒 Control Panel</h2>
+    <div id="orders-log">Loading orders...</div>
+    <p><strong>Total Money Earned:</strong> $<span id="money-earned">0.00</span></p>
   </section>
 
   <footer>
@@ -149,21 +136,10 @@
   </footer>
 
   <script>
-    let cart = [];
     let total = 0;
-    let earnings = 0;
     let orders = 0;
+    const cart = [];
 
-     function sendOrderToSheet(name, drink, price, time, location) {
-    fetch('https://script.google.com/macros/s/YOUR_WEB_APP_URL/exec', {
-      method: 'POST',
-      body: JSON.stringify({ name, drink, price, time, location }),
-      headers: { 'Content-Type': 'application/json' }
-    }).then(res => {
-      if (res.ok) console.log("✅ Sent to Google Sheet");
-    });
-  }
-    
     function addToCart(button) {
       const product = button.parentElement;
       const name = product.dataset.name;
@@ -178,49 +154,48 @@
       total += price;
       orders++;
       document.getElementById("total").textContent = total.toFixed(2);
-      
-      
+
+      const time = prompt("What time should we deliver?");
+      const location = prompt("Where should we deliver?");
+      sendOrderToSheet("Customer", name, price, time, location);
+
       if (orders === 3) {
         alert("🎉 You've earned a free drink on your next order!");
       }
     }
 
-    function checkout() {
-      if (cart.length === 0) {
-        alert("Your cart is empty!");
-        return;
-      }
-      const location = prompt("📍 Where should we deliver your order?");
-      const time = prompt("⏰ What time should we deliver it?");
-
-      const summary = cart.map(item => `${item.name} ($${item.price.toFixed(2)})`).join(", ");
-      const logEntry = `Order: ${summary} | Location: ${location} | Time: ${time} | Total: $${total.toFixed(2)}`;
-
-      const log = document.createElement("li");
-      log.textContent = logEntry;
-      document.getElementById("order-log").appendChild(log);
-
-      earnings += total;
-      document.getElementById("money-earned").textContent = earnings.toFixed(2);
-
-      // Clear cart
-      cart = [];
-      total = 0;
-      orders = 0;
-      document.getElementById("cart-items").innerHTML = "";
-      document.getElementById("total").textContent = "0.00";
-
-      alert("✅ Order placed!");
+    function sendOrderToSheet(name, drink, price, time, location) {
+      fetch('https://script.google.com/macros/https://script.google.com/macros/s/AKfycbz1BHqhl_Mdj5NAoGxG6upjhvvoMBZ1uXHVxBa3w6qWsXKDkBmuEitla7HFIUvkyfwU3A/exec/exec', {
+        method: 'POST',
+        body: JSON.stringify({ name, drink, price, time, location }),
+        headers: { 'Content-Type': 'application/json' }
+      }).then(res => res.json()).then(data => {
+        console.log("✅ Order sent");
+      });
     }
 
-    function unlockAdmin() {
-      const pass = document.getElementById("admin-password").value;
-      if (pass === "thisisliterallythecontrolpanelpasswordbrooo.") {
+    window.onload = function() {
+      const password = prompt("Enter control panel password (or click Cancel to skip):");
+      if (password === "thisisliterallythecontrolpanelpasswordbrooo.") {
         document.getElementById("admin-panel").style.display = "block";
-        document.getElementById("admin-login").style.display = "none";
-      } else {
-        alert("❌ Incorrect password.");
+        fetchOrders();
       }
+    }
+
+    function fetchOrders() {
+      fetch('https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbz1BHqhl_Mdj5NAoGxG6upjhvvoMBZ1uXHVxBa3w6qWsXKDkBmuEitla7HFIUvkyfwU3A/exec')
+        .then(res => res.json())
+        .then(data => {
+          const log = document.getElementById("orders-log");
+          const moneyBox = document.getElementById("money-earned");
+          let totalMoney = 0;
+          log.innerHTML = "";
+          data.orders.forEach(order => {
+            log.innerHTML += `<p><strong>${order.name}</strong> ordered ${order.drink} ($${order.price}) for ${order.time} at ${order.location}</p>`;
+            totalMoney += parseFloat(order.price);
+          });
+          moneyBox.textContent = totalMoney.toFixed(2);
+        });
     }
   </script>
 </body>
