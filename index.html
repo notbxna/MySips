@@ -9,7 +9,7 @@
       font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
-      background: linear-gradient(to right, #dfe9f3, #ffffff);
+      background: linear-gradient(to right, #f0f4f8, #dbefff);
       color: #333;
     }
     header {
@@ -50,7 +50,7 @@
       padding: 0.5rem 1rem;
       border-radius: 4px;
       cursor: pointer;
-      margin-top: 0.5rem;
+      margin-top: 5px;
     }
     button:hover {
       background: #357ac9;
@@ -76,44 +76,44 @@
 
   <main class="product-grid">
     <!-- Sodas -->
-    <div class="product" data-name="Coca Cola" data-price="1.00" data-category="Soda">
+    <div class="product" data-name="Coca Cola" data-price="1.00">
       <h3>Coca Cola</h3>
       <p>$1.00</p>
       <button onclick="addToCart(this)">Add to Cart</button>
     </div>
-    <div class="product" data-name="Dr Pepper" data-price="1.00" data-category="Soda">
+    <div class="product" data-name="Dr Pepper" data-price="1.00">
       <h3>Dr Pepper</h3>
       <p>$1.00</p>
       <button onclick="addToCart(this)">Add to Cart</button>
     </div>
-    <div class="product" data-name="Sprite" data-price="0.75" data-category="Soda">
+    <div class="product" data-name="Sprite" data-price="0.75">
       <h3>Sprite</h3>
       <p>$0.75</p>
       <button onclick="addToCart(this)">Add to Cart</button>
     </div>
     <!-- Refreshers -->
-    <div class="product" data-name="Prime" data-price="1.25" data-category="Refresher">
-      <h3>Prime</h3>
-      <p>$1.25</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
-    </div>
-    <div class="product" data-name="Iced Tea" data-price="1.00" data-category="Refresher">
-      <h3>Iced Tea</h3>
-      <p>$1.00</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
-    </div>
-    <div class="product" data-name="Lemonade" data-price="0.75" data-category="Refresher">
+    <div class="product" data-name="Lemonade" data-price="0.75">
       <h3>Lemonade</h3>
       <p>$0.75</p>
       <button onclick="addToCart(this)">Add to Cart</button>
     </div>
+    <div class="product" data-name="Iced Tea" data-price="1.00">
+      <h3>Iced Tea</h3>
+      <p>$1.00</p>
+      <button onclick="addToCart(this)">Add to Cart</button>
+    </div>
+    <div class="product" data-name="Prime" data-price="1.25">
+      <h3>Prime</h3>
+      <p>$1.25</p>
+      <button onclick="addToCart(this)">Add to Cart</button>
+    </div>
     <!-- Others -->
-    <div class="product" data-name="Chocolate Milk" data-price="0.75" data-category="Milk">
+    <div class="product" data-name="Chocolate Milk" data-price="0.75">
       <h3>Chocolate Milk</h3>
       <p>$0.75</p>
       <button onclick="addToCart(this)">Add to Cart</button>
     </div>
-    <div class="product" data-name="Water" data-price="0.25" data-category="Other">
+    <div class="product" data-name="Water" data-price="0.25">
       <h3>Water</h3>
       <p>$0.25</p>
       <button onclick="addToCart(this)">Add to Cart</button>
@@ -127,7 +127,7 @@
     <button onclick="checkout()">Checkout</button>
   </section>
 
-  <section class="control-panel" style="display:none;" id="admin-panel">
+  <section class="control-panel" id="admin-panel" style="display:none;">
     <h2>🔒 Control Panel</h2>
     <div id="orders-log">Loading orders...</div>
     <p><strong>Total Money Earned:</strong> $<span id="money-earned">0.00</span></p>
@@ -140,82 +140,75 @@
   <script>
     let cart = [];
     let total = 0;
+    let orders = 0;
 
     function addToCart(button) {
       const product = button.parentElement;
       const name = product.dataset.name;
       const price = parseFloat(product.dataset.price);
-
       cart.push({ name, price });
-      const cartItems = document.getElementById("cart-items");
-      const newItem = document.createElement("li");
-      newItem.textContent = `${name} - $${price.toFixed(2)}`;
-      cartItems.appendChild(newItem);
+
+      const item = document.createElement("li");
+      item.textContent = `${name} - $${price.toFixed(2)}`;
+      document.getElementById("cart-items").appendChild(item);
 
       total += price;
+      orders++;
       document.getElementById("total").textContent = total.toFixed(2);
+
+      if (orders === 3) {
+        alert("🎉 You've earned a free drink on your next order!");
+      }
     }
 
     function checkout() {
-      if (cart.length === 0) {
-        alert("Your cart is empty!");
-        return;
-      }
-
+      const name = prompt("What's your name?");
       const time = prompt("What time should we deliver?");
       const location = prompt("Where should we deliver?");
+      const orderDetails = cart.map(item => item.name).join(", ");
+      const orderTotal = total.toFixed(2);
 
-      cart.forEach(item => {
-        sendOrderToSheet("Customer", item.name, item.price, time, location);
-      });
+      const order = { name, items: orderDetails, price: orderTotal, time, location, timestamp: new Date().toLocaleString() };
+
+      const ordersList = JSON.parse(localStorage.getItem("mysips_orders") || "[]");
+      ordersList.push(order);
+      localStorage.setItem("mysips_orders", JSON.stringify(ordersList));
 
       alert("✅ Order placed!");
       cart = [];
       total = 0;
+      orders = 0;
       document.getElementById("cart-items").innerHTML = "";
       document.getElementById("total").textContent = "0.00";
+
+      if (document.getElementById("admin-panel").style.display === "block") {
+        showOrders();
+      }
     }
 
-    function sendOrderToSheet(name, drink, price, time, location) {
-      fetch('https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbyvdhkrQp_t8UM0_D1Hl4DTL2pgSOE_iUSjlQM7z5xMv0mcDOrvTW39sxdpnE46BpGkCw/exec', {
-        method: 'POST',
-        body: JSON.stringify({ name, drink, price, time, location }),
-        headers: { 'Content-Type': 'application/json' }
-      }).then(res => res.json()).then(data => {
-        console.log("✅ Order sent");
+    function showOrders() {
+      const orders = JSON.parse(localStorage.getItem("mysips_orders") || "[]");
+      const log = document.getElementById("orders-log");
+      const moneyBox = document.getElementById("money-earned");
+
+      let totalEarned = 0;
+      log.innerHTML = "";
+
+      orders.forEach(order => {
+        totalEarned += parseFloat(order.price);
+        log.innerHTML += `<p><strong>${order.name}</strong> ordered ${order.items} ($${order.price}) for ${order.time} at ${order.location}</p>`;
       });
-    }
 
-    function fetchOrders() {
-      fetch('https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbyvdhkrQp_t8UM0_D1Hl4DTL2pgSOE_iUSjlQM7z5xMv0mcDOrvTW39sxdpnE46BpGkCw/exec')
-        .then(res => res.json())
-        .then(data => {
-          const log = document.getElementById("orders-log");
-          const moneyBox = document.getElementById("money-earned");
-          let totalMoney = 0;
-          log.innerHTML = "";
-          if (data.orders && data.orders.length > 0) {
-            data.orders.forEach(order => {
-              log.innerHTML += `<p><strong>${order.name}</strong> ordered ${order.drink} ($${order.price}) for ${order.time} at ${order.location}</p>`;
-              totalMoney += parseFloat(order.price);
-            });
-          } else {
-            log.innerHTML = "<p>No orders found.</p>";
-          }
-          moneyBox.textContent = totalMoney.toFixed(2);
-        })
-        .catch(error => {
-          document.getElementById("orders-log").innerHTML = "<p>Could not load orders.</p>";
-        });
+      moneyBox.textContent = totalEarned.toFixed(2);
     }
 
     window.onload = function () {
       const password = prompt("Enter control panel password (or click Cancel to skip):");
       if (password === "thisisliterallythecontrolpanelpasswordbrooo.") {
         document.getElementById("admin-panel").style.display = "block";
-        fetchOrders();
+        showOrders();
       }
-    };
+    }
   </script>
 </body>
 </html>
