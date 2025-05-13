@@ -9,7 +9,7 @@
       font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
-      background: #f0f4f8;
+      background: linear-gradient(to right, #dfe9f3, #ffffff);
       color: #333;
     }
     header {
@@ -50,6 +50,7 @@
       padding: 0.5rem 1rem;
       border-radius: 4px;
       cursor: pointer;
+      margin-top: 0.5rem;
     }
     button:hover {
       background: #357ac9;
@@ -123,6 +124,7 @@
     <h2>🛒 Your Cart</h2>
     <ul id="cart-items"></ul>
     <p><strong>Total:</strong> $<span id="total">0.00</span></p>
+    <button onclick="checkout()">Checkout</button>
   </section>
 
   <section class="control-panel" style="display:none;" id="admin-panel">
@@ -136,9 +138,8 @@
   </footer>
 
   <script>
+    let cart = [];
     let total = 0;
-    let orders = 0;
-    const cart = [];
 
     function addToCart(button) {
       const product = button.parentElement;
@@ -152,34 +153,37 @@
       cartItems.appendChild(newItem);
 
       total += price;
-      orders++;
       document.getElementById("total").textContent = total.toFixed(2);
+    }
+
+    function checkout() {
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
 
       const time = prompt("What time should we deliver?");
       const location = prompt("Where should we deliver?");
-      sendOrderToSheet(name, price, time, location);
 
-      if (orders === 3) {
-        alert("🎉 You've earned a free drink on your next order!");
-      }
+      cart.forEach(item => {
+        sendOrderToSheet("Customer", item.name, item.price, time, location);
+      });
+
+      alert("✅ Order placed!");
+      cart = [];
+      total = 0;
+      document.getElementById("cart-items").innerHTML = "";
+      document.getElementById("total").textContent = "0.00";
     }
 
-    function sendOrderToSheet(name, price, time, location) {
+    function sendOrderToSheet(name, drink, price, time, location) {
       fetch('https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbyvdhkrQp_t8UM0_D1Hl4DTL2pgSOE_iUSjlQM7z5xMv0mcDOrvTW39sxdpnE46BpGkCw/exec', {
         method: 'POST',
-        body: JSON.stringify({ name, drink: name, price, time, location }),
+        body: JSON.stringify({ name, drink, price, time, location }),
         headers: { 'Content-Type': 'application/json' }
       }).then(res => res.json()).then(data => {
         console.log("✅ Order sent");
       });
-    }
-
-    window.onload = function() {
-      const password = prompt("Enter control panel password (or click Cancel to skip):");
-      if (password === "thisisliterallythecontrolpanelpasswordbrooo.") {
-        document.getElementById("admin-panel").style.display = "block";
-        fetchOrders();
-      }
     }
 
     function fetchOrders() {
@@ -190,13 +194,28 @@
           const moneyBox = document.getElementById("money-earned");
           let totalMoney = 0;
           log.innerHTML = "";
-          data.orders.forEach(order => {
-            log.innerHTML += `<p><strong>${order.name}</strong> ordered ${order.drink} ($${order.price}) for ${order.time} at ${order.location}</p>`;
-            totalMoney += parseFloat(order.price);
-          });
+          if (data.orders && data.orders.length > 0) {
+            data.orders.forEach(order => {
+              log.innerHTML += `<p><strong>${order.name}</strong> ordered ${order.drink} ($${order.price}) for ${order.time} at ${order.location}</p>`;
+              totalMoney += parseFloat(order.price);
+            });
+          } else {
+            log.innerHTML = "<p>No orders found.</p>";
+          }
           moneyBox.textContent = totalMoney.toFixed(2);
+        })
+        .catch(error => {
+          document.getElementById("orders-log").innerHTML = "<p>Could not load orders.</p>";
         });
     }
+
+    window.onload = function () {
+      const password = prompt("Enter control panel password (or click Cancel to skip):");
+      if (password === "thisisliterallythecontrolpanelpasswordbrooo.") {
+        document.getElementById("admin-panel").style.display = "block";
+        fetchOrders();
+      }
+    };
   </script>
 </body>
 </html>
