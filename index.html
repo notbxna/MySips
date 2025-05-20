@@ -1,4 +1,3 @@
-html_content = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +9,7 @@ html_content = """
       font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
-      background: linear-gradient(to right, #d9e4f5, #f7fafd);
+      background: linear-gradient(to bottom right, #f2f7ff, #d1e0f7);
       color: #333;
     }
     header {
@@ -32,40 +31,40 @@ html_content = """
     }
     .product {
       background: white;
-      border-radius: 10px;
+      border-radius: 8px;
       padding: 1rem;
-      box-shadow: 0 0 12px rgba(0,0,0,0.08);
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
       text-align: center;
     }
     .cart, .control-panel {
       background: #fff;
       margin: 1rem;
       padding: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
     }
     button {
       background: #4a90e2;
       color: white;
       border: none;
-      padding: 0.6rem 1rem;
+      padding: 0.5rem 1rem;
       border-radius: 4px;
       cursor: pointer;
-      margin-top: 0.5rem;
     }
     button:hover {
       background: #357ac9;
+    }
+    select, textarea {
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 0.4rem;
+      border-radius: 4px;
     }
     footer {
       text-align: center;
       padding: 1rem;
       font-size: 0.9rem;
       color: #666;
-    }
-    input, select, textarea {
-      margin: 0.3rem 0;
-      padding: 0.4rem;
-      width: 90%;
     }
   </style>
 </head>
@@ -80,84 +79,56 @@ html_content = """
     <p>Buy 3 drinks and get the next one free!</p>
   </section>
 
-  <main class="product-grid">
-    <!-- Sodas -->
-    <div class="product" data-name="Coca Cola" data-price="2.50">
-      <h3>Coca Cola</h3>
-      <p>$2.50</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
-    </div>
-    <div class="product" data-name="Dr Pepper" data-price="2.50">
-      <h3>Dr Pepper</h3>
-      <p>$2.50</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
-    </div>
-    <div class="product" data-name="Sprite" data-price="2.50">
-      <h3>Sprite</h3>
-      <p>$2.50</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
-    </div>
+  <main class="product-grid" id="product-grid"></main>
 
-    <!-- Refreshers -->
-    <div class="product" data-name="Fresh Lemonade" data-price="1.00">
-      <h3>Fresh Lemonade</h3>
-      <p>$1.00</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
-    </div>
-    <div class="product" data-name="Iced Tea" data-price="2.00">
-      <h3>Iced Tea</h3>
-      <p>$2.00</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
-    </div>
-
-    <!-- Others -->
-    <div class="product" data-name="Water" data-price="0.25">
-      <h3>Water</h3>
-      <p>$0.25</p>
-      <button onclick="addToCart(this)">Add to Cart</button>
-    </div>
-
-    <!-- Custom Drink -->
-    <div class="product">
-      <h3>Custom Drink</h3>
-      <form onsubmit="createCustomDrink(event)">
-        <label>Fruits:</label><br>
-        <select multiple id="fruits">
-          <option value="Lemon">Lemon</option>
-          <option value="Orange">Orange</option>
-          <option value="Apple">Apple</option>
-          <option value="Banana">Banana</option>
-        </select><br>
-        <label>Ice:</label><br>
-        <select id="ice">
-          <option value="A little">A little</option>
-          <option value="Medium">Medium</option>
-          <option value="Extra">Extra</option>
-        </select><br>
-        <label>Type:</label><br>
-        <select id="type">
-          <option value="Smoothie">Smoothie</option>
-          <option value="Smoothie Bowl">Smoothie Bowl</option>
-          <option value="Regular Drink">Regular Drink</option>
-        </select><br>
-        <label>Description:</label><br>
-        <textarea id="desc" placeholder="Add anything else..."></textarea><br>
-        <button type="submit">Add Custom Drink ($3.00)</button>
-      </form>
-    </div>
-  </main>
+  <div class="product" style="margin: 1rem;">
+    <h3>Custom Drink</h3>
+    <label>Fruits (hold Ctrl/Command to select multiple):</label>
+    <select multiple id="fruit-select">
+      <option>Orange</option>
+      <option>Banana</option>
+      <option>Lemon</option>
+      <option>Strawberries</option>
+      <option>Blueberries</option>
+      <option>Raspberries</option>
+      <option>Dragonfruit</option>
+    </select>
+    <label>Ice Amount:</label>
+    <select id="ice-select">
+      <option>A little</option>
+      <option>Medium</option>
+      <option>Extra</option>
+    </select>
+    <label>Drink Type:</label>
+    <select id="type-select">
+      <option>Smoothie</option>
+      <option>Smoothie Bowl</option>
+      <option>Regular Liquid Drink</option>
+    </select>
+    <label>Extra Description:</label>
+    <textarea id="custom-desc" placeholder="Any extra notes..."></textarea>
+    <button onclick="addCustomDrink()">Add Custom Drink ($1.50)</button>
+  </div>
 
   <section class="cart">
     <h2>🛒 Your Cart</h2>
     <ul id="cart-items"></ul>
     <p><strong>Total:</strong> $<span id="total">0.00</span></p>
-    <button onclick="checkout()">Checkout</button>
   </section>
 
   <section class="control-panel" style="display:none;" id="admin-panel">
     <h2>🔒 Control Panel</h2>
-    <div id="orders-log">Loading orders...</div>
-    <p><strong>Total Money Earned:</strong> $<span id="money-earned">0.00</span></p>
+    <div>
+      <h3>Orders</h3>
+      <div id="orders-log">Loading orders...</div>
+    </div>
+    <div>
+      <h3>Total Money Earned: $<span id="money-earned">0.00</span></h3>
+    </div>
+    <div>
+      <h3>Stock Management</h3>
+      <div id="stock-controls"></div>
+    </div>
   </section>
 
   <footer>
@@ -165,99 +136,116 @@ html_content = """
   </footer>
 
   <script>
+    const DRINKS = [
+      { name: "Coca Cola", price: 2.50, category: "Soda" },
+      { name: "Dr Pepper", price: 2.50, category: "Soda" },
+      { name: "Sprite", price: 2.50, category: "Soda" },
+      { name: "Fresh Lemonade", price: 1.00, category: "Refresher" },
+      { name: "Water", price: 0.25, category: "Other" },
+      { name: "Iced Tea", price: 2.00, category: "Refresher" },
+    ];
+
     let total = 0;
     let orders = 0;
     let cart = [];
+    let orderLog = [];
+    let stock = {};
 
-    function addToCart(button) {
-      const product = button.parentElement;
-      const name = product.dataset.name;
-      const price = parseFloat(product.dataset.price);
+    DRINKS.forEach(d => stock[d.name] = 10); // default stock
 
-      cart.push({ name, price });
-      const item = document.createElement("li");
-      item.textContent = `${name} - $${price.toFixed(2)}`;
-      document.getElementById("cart-items").appendChild(item);
+    function renderDrinks() {
+      const grid = document.getElementById("product-grid");
+      DRINKS.forEach(drink => {
+        const div = document.createElement("div");
+        div.className = "product";
+        div.innerHTML = `
+          <h3>${drink.name}</h3>
+          <p>$${drink.price.toFixed(2)}</p>
+          <p><small>Stock: <span id="stock-${drink.name}">${stock[drink.name]}</span></small></p>
+          <button onclick="addToCart('${drink.name}', ${drink.price})">Add to Cart</button>
+        `;
+        grid.appendChild(div);
+      });
+    }
 
+    function updateCart(name, price) {
+      const cartItems = document.getElementById("cart-items");
+      const newItem = document.createElement("li");
+      newItem.textContent = `${name} - $${price.toFixed(2)}`;
+      cartItems.appendChild(newItem);
       total += price;
+      orders++;
       document.getElementById("total").textContent = total.toFixed(2);
     }
 
-    function createCustomDrink(e) {
-      e.preventDefault();
-      const fruits = Array.from(document.getElementById("fruits").selectedOptions).map(f => f.value).join(", ");
-      const ice = document.getElementById("ice").value;
-      const type = document.getElementById("type").value;
-      const desc = document.getElementById("desc").value;
-      const name = `Custom Drink: ${type} w/ ${fruits}, Ice: ${ice}, Notes: ${desc}`;
-      const price = 3.00;
-      cart.push({ name, price });
-      const item = document.createElement("li");
-      item.textContent = `${name} - $${price.toFixed(2)}`;
-      document.getElementById("cart-items").appendChild(item);
-      total += price;
-      document.getElementById("total").textContent = total.toFixed(2);
+    function promptOrderDetails(name, price) {
+      const time = prompt("⏰ What time should we deliver?");
+      const location = prompt("📍 Where should we meet?");
+      const order = { name, price, time, location };
+      orderLog.push(order);
+      updateAdminPanel();
     }
 
-    function checkout() {
-      if (cart.length === 0) {
-        alert("Your cart is empty!");
-        return;
+    function addToCart(name, price) {
+      if (stock[name] <= 0) return alert("Out of stock!");
+      cart.push({ name, price });
+      stock[name]--;
+      document.getElementById(`stock-${name}`).textContent = stock[name];
+      updateCart(name, price);
+      promptOrderDetails(name, price);
+      if (orders % 4 === 0) {
+        alert("🎉 You've earned a free drink!");
       }
-      const time = prompt("What time should we deliver?");
-      const location = prompt("Where should we deliver?");
-      cart.forEach(order => {
-        const entry = {
-          name: "Customer",
-          drink: order.name,
-          price: order.price,
-          time,
-          location
-        };
-        saveOrder(entry);
-      });
-      alert("✅ Order placed!");
-      cart = [];
-      total = 0;
-      document.getElementById("cart-items").innerHTML = "";
-      document.getElementById("total").textContent = "0.00";
-      loadOrders(); // refresh admin panel
     }
 
-    function saveOrder(order) {
-      let orders = JSON.parse(localStorage.getItem("mysips_orders") || "[]");
-      orders.push(order);
-      localStorage.setItem("mysips_orders", JSON.stringify(orders));
+    function addCustomDrink() {
+      const fruits = Array.from(document.getElementById("fruit-select").selectedOptions).map(o => o.value);
+      const ice = document.getElementById("ice-select").value;
+      const type = document.getElementById("type-select").value;
+      const desc = document.getElementById("custom-desc").value;
+      const details = `Custom Drink (${type}) with ${fruits.join(", ")}, ice: ${ice}. Notes: ${desc}`;
+      addToCart(details, 1.5);
     }
 
-    function loadOrders() {
-      let orders = JSON.parse(localStorage.getItem("mysips_orders") || "[]");
+    function updateAdminPanel() {
       const log = document.getElementById("orders-log");
-      const money = document.getElementById("money-earned");
-      let totalMoney = 0;
+      const moneyBox = document.getElementById("money-earned");
       log.innerHTML = "";
-      orders.forEach(o => {
-        log.innerHTML += `<p><strong>${o.name}</strong> ordered ${o.drink} ($${o.price}) for ${o.time} at ${o.location}</p>`;
-        totalMoney += parseFloat(o.price);
+      let totalMoney = 0;
+      orderLog.forEach(order => {
+        log.innerHTML += `<p><strong>${order.name}</strong> - ${order.time} @ ${order.location}</p>`;
+        totalMoney += order.price;
       });
-      money.textContent = totalMoney.toFixed(2);
+      moneyBox.textContent = totalMoney.toFixed(2);
+    }
+
+    function renderStockControls() {
+      const container = document.getElementById("stock-controls");
+      container.innerHTML = "";
+      for (let drink in stock) {
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = `
+          <label>${drink}: </label>
+          <input type="number" min="0" value="${stock[drink]}" onchange="updateStock('${drink}', this.value)">
+        `;
+        container.appendChild(wrapper);
+      }
+    }
+
+    function updateStock(drink, val) {
+      stock[drink] = parseInt(val);
+      document.getElementById(`stock-${drink}`).textContent = stock[drink];
     }
 
     window.onload = function() {
-      const pass = prompt("Enter control panel password (or Cancel to skip):");
-      if (pass === "thisisliterallythecontrolpanelpasswordbrooo.") {
+      renderDrinks();
+      const pw = prompt("Enter control panel password (or Cancel to skip):");
+      if (pw === "thisisliterallythecontrolpanelpasswordbrooo.") {
         document.getElementById("admin-panel").style.display = "block";
-        loadOrders();
+        renderStockControls();
+        updateAdminPanel();
       }
-    }
+    };
   </script>
 </body>
 </html>
-"""
-
-# Save this HTML file
-html_path = "/mnt/data/mysips_updated_with_checkout.html"
-with open(html_path, "w") as f:
-    f.write(html_content)
-
-html_path
